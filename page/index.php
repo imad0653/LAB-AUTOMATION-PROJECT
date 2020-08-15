@@ -48,10 +48,28 @@
             }  ?>
                 </select><br>
                 <select class="form-control" id="product_Type" name="product_Type_selection">
-                <option id="Selecter2" name="" disabled selected>Please select</option>                                   
+                <option id="Selecter2" name="" disabled selected>Please select</option>      
+                <?php
+                $sql = "SELECT * FROM `types_product`";
+                $result = mysqli_query($conn,$sql) ;
+                while($row = mysqli_fetch_assoc($result)){
+                    $id = $id +1;
+                    echo '<option id="Selecter" value="'.$row['id'].'" name="product_disply">'.$row['name'].'</option>';
+                }
+                ?>                             
                 </select><br>
                 <select class="form-control" id="product_Volt_Type" name="product_Volt_Type_selection">
                 <option id="Selecter3" name="" disabled selected>Please select</option>
+                <?php
+                 if($_POST['product_Type_selection'] == "AC TYPE"){
+                    $sql = "SELECT * FROM `volt_type`";
+                    $result = mysqli_query($conn,$sql) ;
+                    while($row = mysqli_fetch_assoc($result)){
+                        $id = $id +1;
+                        echo '<option id="Selecter" value="'.$row['id'].'" name="product_disply">'.$row['name'].'</option>';
+                    }
+                 }
+                ?>
                 </select>
             </div>
         </form>
@@ -77,33 +95,33 @@
     <script src="../js/demo/chart-pie-demo.js"></script>
     <!-- <script src="../js/app.js"></script> -->
 <script>
-    $(document).ready(function() {
-    $("#product").change(function() {
-        var course_id = $(this).val();
-        $.ajax({
-            url: "action.php",
-            method: "POST",
-            data: {courseID:course_id },
-            success:function(data) {
-                $("#product_Type").html(data);
-            }
-        });
-    });
-});
+//     $(document).ready(function() {
+//     $("#product").change(function() {
+//         var course_id = $(this).val();
+//         $.ajax({
+//             url: "action.php",
+//             method: "POST",
+//             data: {courseID:course_id },
+//             success:function(data) {
+//                 $("#product_Type").html(data);
+//             }
+//         });
+//     });
+// });
 
-$(document).ready(function() {
-    $("#product_Type").change(function() {
-        var course_id = $(this).val();
-        $.ajax({
-            url: "action2.php",
-            method: "POST",
-            data: {courseID_2:course_id },
-            success:function(data) {
-                $("#product_Volt_Type").html(data);
-            }
-        });
-    });
-});
+// $(document).ready(function() {
+//     $("#product_Type").change(function() {
+//         var course_id = $(this).val();
+//         $.ajax({
+//             url: "action2.php",
+//             method: "POST",
+//             data: {courseID:course_id },
+//             success:function(data) {
+//                 $("#product_Volt_Type").html(data);
+//             }
+//         });
+//     });
+// });
 
 
 
